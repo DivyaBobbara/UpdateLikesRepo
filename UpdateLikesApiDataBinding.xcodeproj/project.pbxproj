@@ -21,7 +21,7 @@
 		7C36FC3728AEAD9C004AEDD1 /* CVListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C36FC3628AEAD9C004AEDD1 /* CVListViewController.swift */; };
 		7C36FC3E28AEC111004AEDD1 /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C36FC3D28AEC111004AEDD1 /* CellConfigurable.swift */; };
 		7C36FC4028AEC156004AEDD1 /* RowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C36FC3F28AEC156004AEDD1 /* RowViewModel.swift */; };
-		7CC3424A28AF8B2A00ECC3C6 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC3424928AF8B2A00ECC3C6 /* NetworkLayer.swift */; };
+		7C3A9D0228B213C8008940D8 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3A9D0128B213C8008940D8 /* NetworkLayer.swift */; };
 		F3581ECDB87D18F638199F38 /* Pods_UpdateLikesApiDataBinding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23512AB859EA0F95E04B0EE2 /* Pods_UpdateLikesApiDataBinding.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,7 +45,7 @@
 		7C36FC3628AEAD9C004AEDD1 /* CVListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVListViewController.swift; sourceTree = "<group>"; };
 		7C36FC3D28AEC111004AEDD1 /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
 		7C36FC3F28AEC156004AEDD1 /* RowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowViewModel.swift; sourceTree = "<group>"; };
-		7CC3424928AF8B2A00ECC3C6 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		7C3A9D0128B213C8008940D8 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +104,7 @@
 				7C36FC3628AEAD9C004AEDD1 /* CVListViewController.swift */,
 				7C36FC3D28AEC111004AEDD1 /* CellConfigurable.swift */,
 				7C36FC3F28AEC156004AEDD1 /* RowViewModel.swift */,
-				7CC3424928AF8B2A00ECC3C6 /* NetworkLayer.swift */,
+				7C3A9D0128B213C8008940D8 /* NetworkLayer.swift */,
 			);
 			path = UpdateLikesApiDataBinding;
 			sourceTree = "<group>";
@@ -241,7 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CC3424A28AF8B2A00ECC3C6 /* NetworkLayer.swift in Sources */,
+				7C3A9D0228B213C8008940D8 /* NetworkLayer.swift in Sources */,
 				7C36FC1B28AEA007004AEDD1 /* ViewController.swift in Sources */,
 				7C36FC2F28AEAC18004AEDD1 /* Observable.swift in Sources */,
 				7C36FC1728AEA007004AEDD1 /* AppDelegate.swift in Sources */,

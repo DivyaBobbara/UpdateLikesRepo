@@ -2,28 +2,19 @@
 //  NetworkLayer.swift
 //  UpdateLikesApiDataBinding
 //
-//  Created by Naga Divya Bobbara on 19/08/22.
+//  Created by Naga Divya Bobbara on 21/08/22.
 //
 
 import Foundation
 import Alamofire
 class NetworkLayer{
-    var viewModel : GetPostsListViewModel{
-        return GetPostsListViewModel()
-    }
-    lazy var controller : CVListViewController = {
-        return CVListViewController()
-    }()
-    func apiCall()
+    func apiCall(completion:@escaping([GetPostsData]?)->Void)
     {
         DispatchQueue.global().async {
-//            sleep(2)
+            sleep(1)
             AF.request("http://stagetao.gcf.education:3000/api/v1/posts/3", method: .get, parameters: nil,headers: nil).responseDecodable(of: GetPosts.self) { response in
-//                print(response)
-                self.viewModel.isLoading.value = false
-                self.viewModel.isTableViewHidden.value = false
-                self.viewModel.title.value = " Get Posts"
-                self.convertDataObjectToViewModel(response: response.value?.data ?? [])
+//                self.convertDataObjectToViewModel(response: response.value?.data ?? [])
+                completion(response.value?.data)
                 
                
             }
@@ -31,12 +22,12 @@ class NetworkLayer{
             
         }
     }
-  
-    
-    func convertDataObjectToViewModel(response: [GetPostsData]) {
-        self.viewModel.userLists.value = response.compactMap({
-            MemberCellViewModel(userName: $0.userName ?? "",totalLikes: $0.totalLikes ?? 0,likeStatus: ($0.likeStatus)!,postId: $0.postId ?? 0,postData: $0.postData ?? "")
-        })
-    }
-    
+    func updateLikes(postId : Int,likeStatus :Bool,completion:@escaping(Bool)->Void){
+            
+            AF.request("http://stagetao.gcf.education:3000/api/v1/postLikes/\(postId)/3/\(!(likeStatus))", method: .put, parameters: nil, headers: nil).responseDecodable(of:UpdateLikes.self) { res in
+                print(res)
+                
+                completion(true)
+            }
+        }
 }

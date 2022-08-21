@@ -9,68 +9,60 @@ import Foundation
 import Alamofire
 class CVListViewController{
     let viewModel  : GetPostsListViewModel
-  
-    init(viewModel : GetPostsListViewModel = GetPostsListViewModel()){
+    let networkLayer : NetworkLayer
+    init(viewModel : GetPostsListViewModel = GetPostsListViewModel(),networkLayer:NetworkLayer = NetworkLayer()){
         self.viewModel = viewModel
-       
+        self.networkLayer = networkLayer
     }
-    
     func start()
     {
         viewModel.isLoading.value = true
         viewModel.isTableViewHidden.value = true
         viewModel.title.value = "Loading...."
-        apiCall { getPostsData in
+        networkLayer.apiCall { getPostsData in
             self.viewModel.isLoading.value = false
             self.viewModel.isTableViewHidden.value = false
             self.viewModel.title.value = " Get Posts"
             self.buildViewModels(data: getPostsData ?? [])
         }
 //        updatePostsApiCall(postId: viewModel.userLists.value)
-       
-    }
-    func apiCall(completion:@escaping([GetPostsData]?)->Void)
-    {
-        DispatchQueue.global().async {
-//            sleep(1)
-            AF.request("http://stagetao.gcf.education:3000/api/v1/posts/3", method: .get, parameters: nil,headers: nil).responseDecodable(of: GetPosts.self) { response in
-                self.convertDataObjectToViewModel(response: response.value?.data ?? [])
-                completion(response.value?.data)
-               
-            }
-        
-            
-        }
     }
     func buildViewModels(data:[GetPostsData]){
         
-        print(data[0].userName)
+//        print(data[0].userName)
+        var rowViewModel = [MemberCellViewModel]()
         for memberData in data {
-            if let memberFeed = memberData as? GetPostsData{
-                var memberCellVM : MemberCellViewModel = MemberCellViewModel(userName: memberFeed.userName ?? "", totalLikes: memberFeed.totalLikes ?? 0, likeStatus: (memberFeed.likeStatus)!, postId: memberFeed.postId ?? 0, postData: memberFeed.postData ?? "")
-                memberCellVM.updateButtonPressed = handleUpdateLikes(postId: memberFeed.postId ?? 0, likeStatus: memberFeed.likeStatus!, viewModel: memberCellVM)
-//                print("pressedbtn")
+                var memberCellVM : MemberCellViewModel = MemberCellViewModel(userName: memberData.userName ?? "", totalLikes: memberData.totalLikes ?? 0, likeStatus: (memberData.likeStatus)!, postId: memberData.postId ?? 0, postData: memberData.postData ?? "")
+                memberCellVM.likesButtonPressed = handleUpdateLikes(postId: memberData.postId ?? 0, likeStatus: memberData.likeStatus!, viewModel: memberCellVM)
+               
+                rowViewModel.append(memberCellVM)
                 
             }
+            self.viewModel.userLists.value = rowViewModel
         }
         
-        
-        
-    }
     func handleUpdateLikes(postId : Int,likeStatus : Bool,viewModel : MemberCellViewModel) -> (()->Void){
         return {
-        print(postId, likeStatus)
+            self.networkLayer.updateLikes(postId: postId, likeStatus: likeStatus) { success in
+                print("success")
+                self.start()
+            }
         }
     }
+}
+    
+
+    
+    
   
     
-    func convertDataObjectToViewModel(response: [GetPostsData]) {
-        self.viewModel.userLists.value = response.compactMap({
-            MemberCellViewModel(userName: $0.userName ?? "",totalLikes: $0.totalLikes ?? 0,likeStatus: ($0.likeStatus)!,postId: $0.postId ?? 0,postData: $0.postData ?? "")
-            
-        })
-//        print("userlist",viewModel.userLists.value[0].userName)
-    }
+//    func convertDataObjectToViewModel(response: [GetPostsData]) {
+//        self.viewModel.userLists.value = response.compactMap({
+//            MemberCellViewModel(userName: $0.userName ?? "",totalLikes: $0.totalLikes ?? 0,likeStatus: ($0.likeStatus)!,postId: $0.postId ?? 0,postData: $0.postData ?? "")
+//            
+//        })
+////        print("userlist",viewModel.userLists.value[0].userName)
+//    }
 //    func updateLikes(index:Int){
 //        print("ulist",viewModel.userLists.value)
 //        print("index",index)
@@ -83,4 +75,4 @@ class CVListViewController{
 //        }
 //    }
     
-}
+
