@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 class NetworkLayer{
-    func apiCall(completion:@escaping([GetPostsData]?)->Void)
+    func fetchGetPostsApi(completion:@escaping([GetPostsData]?)->Void)
     {
         DispatchQueue.global().async {
             sleep(1)
@@ -22,11 +22,9 @@ class NetworkLayer{
             
         }
     }
-    func updateLikes(postId : Int,likeStatus :Bool,completion:@escaping(Bool)->Void){
-            
+    func updateLikesApi(postId : Int,likeStatus :Bool,completion:@escaping(Bool)->Void){
             AF.request("http://stagetao.gcf.education:3000/api/v1/postLikes/\(postId)/3/\(!(likeStatus))", method: .put, parameters: nil, headers: nil).responseDecodable(of:UpdateLikes.self) { res in
                 print(res)
-                
                 completion(true)
             }
         }

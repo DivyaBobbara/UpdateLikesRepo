@@ -59,12 +59,11 @@ class ViewController: UIViewController,UICollectionViewDelegate,UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
         cell.backgroundColor = .lightGray
-        cell.likeIconButton.tag = indexPath.row
+//        cell.likeIconButton.tag = indexPath.row
         let rowViewModel = viewModel.userLists.value[indexPath.row]
         if let cell = cell as? CellConfigurable{
             cell.setUp(viewModel: rowViewModel)
         }
-        cell.layoutIfNeeded()
         return cell
     }
     

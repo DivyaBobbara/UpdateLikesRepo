@@ -19,7 +19,7 @@ class CVListViewController{
         viewModel.isLoading.value = true
         viewModel.isTableViewHidden.value = true
         viewModel.title.value = "Loading...."
-        networkLayer.apiCall { getPostsData in
+        networkLayer.fetchGetPostsApi { getPostsData in
             self.viewModel.isLoading.value = false
             self.viewModel.isTableViewHidden.value = false
             self.viewModel.title.value = " Get Posts"
@@ -43,7 +43,7 @@ class CVListViewController{
         
     func handleUpdateLikes(postId : Int,likeStatus : Bool,viewModel : MemberCellViewModel) -> (()->Void){
         return {
-            self.networkLayer.updateLikes(postId: postId, likeStatus: likeStatus) { success in
+            self.networkLayer.updateLikesApi(postId: postId, likeStatus: likeStatus) { success in
                 print("success")
                 self.start()
             }
